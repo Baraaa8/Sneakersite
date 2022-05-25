@@ -1,0 +1,22 @@
+<%- include ('header') -%>
+<body class="container text-center col-md-4 offset-md-4">
+    <!--Tartalom-->
+    <h1>Cipő <% if (typeof cipo === 'undefined') {%>létrehozása<%} else {%>módosítása<%} %>
+    </h1>
+    <form method="POST" <% if (typeof cipo === 'undefined') {%>enctype='multipart/form-data'<%} %>>
+        <input type="hidden" name="id" value="<%= (typeof cipo==='undefined') ? '' : cipo._id %>">
+        <% if (typeof cipo === 'undefined') {%><input  type="file" name="kep" accept="image/*"/><%} %>
+        <div class="form-group">
+            <label class="h3" for="name" class="form-control">Cipő neve:</label>
+            <input type="text" class="form-control text-center" id="name" name="nev"
+                value="<%= (typeof cipo === 'undefined') ? '' : cipo.nev %>">
+        </div>
+        <div class="form-group mb-2">
+            <label class="h3" for="ertek" class="form-control">Becsült értéke:</label>
+            <input type="number" step=1000 min=1000 class="form-control text-center" id="ertek" name="ar"
+                value="<%= (typeof cipo === 'undefined') ? '' : cipo.ar %>">
+        </div>
+        <input type="submit" class="btn btn-primary" value="Mentés"/>
+        <a href="/user/<%= user._id %>/sajat/cipo" class="btn btn-danger">Mégsem</a>
+    </form>
+<%- include ('footer') -%>

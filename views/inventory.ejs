@@ -1,0 +1,90 @@
+<%- include ('header') -%>
+<body>
+    <%- include ('navbar', {active: 'inventory' }) -%>
+    <!--Tartalom-->
+    <div class="container">
+        <div class="h1 text-center">Összes cipőm</div>
+        <table class="table table-bordered table-hover text-center align-middle">
+            <thead>
+                <tr>
+                    <th scope="col">Cipő</th>
+                    <th scope="col">Cipő neve</th>
+                    <th scope="col">Becsült ár</th>
+                    <th scope="col">Meg van hirdetve?</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% cipok.forEach(function(shoe) { %>
+                    <% if (user._id.toString() == shoe._elado) { %>
+                        <tr>
+                            <th><img src="<%= shoe.kep %>" alt="<%= shoe.nev %>" width="107" height="107"></th>
+                            <td>
+                                <%= shoe.nev %>
+                            </td>
+                            <td>
+                                <%= shoe.ar %> Ft
+                            </td>
+                            <td>
+                                <%= shoe.hirdetve %>
+                            </td>
+                            <td>
+                                <!--Meghirdetés-->
+                                <button type="button" class="btn btn-success btn-lg" data-bs-toggle="modal"
+                                    data-bs-target="#hirdet<%= shoe._id %>"><i class="fas fa-hand-holding-usd"></i></button>
+                                <div class="modal fade" id="hirdet<%= shoe._id %>" tabindex="-1" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Meg szeretné meghirdetni a(z) <%=
+                                                        shoe.nev %>
+                                                        cipőjét?</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                A cipő ára <%= shoe.ar %> Ft.
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Vissza</button>
+                                                <a href="/user/<%= user._id %>/sajat/elado/cipo/<%= shoe._id %>/hirdet" class="btn btn-success">Meghirdetés</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Szerkesztés-->
+                                <a href="/user/<%= user._id %>/sajat/cipo/<%= shoe._id %>/edit"
+                                    class="btn btn-primary btn-lg"><i class="fas fa-edit"></i></a>
+                                <!--Törlés-->
+                                <button type="button" class="btn btn-danger btn-lg" data-bs-toggle="modal"
+                                    data-bs-target="#torles<%= shoe._id %>"><i class="fas fa-trash-alt"></i></button>
+                                <div class="modal fade" id="torles<%= shoe._id %>" tabindex="-1" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Szeretné törölni a cipőjét?</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                A törölni kívánt cipő a(z) <%= shoe.nev %>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Vissza</button>
+                                                <a href="/user/<%= user._id %>/sajat/cipo/<%= shoe._id %>/del" class="btn btn-danger">Törlés</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    <% } %>    
+                <% }); %>
+            </tbody>
+        </table>
+        <a href="/user/<%= user._id %>/sajat/cipo/new" class="btn-secondary float-end btn-lg"><i
+                class="fas fa-plus"></i></a>
+    </div>
+    <%- include ('footer') -%>

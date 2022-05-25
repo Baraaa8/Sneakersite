@@ -1,0 +1,58 @@
+<%- include ('header') -%>
+<body>
+    <%- include ('navbar', {active: 'myAds' }) -%>
+        <!--Tartalom-->
+        <div class="container">
+            <div class="h1 text-center">Meghirdetett cipőim</div>
+            <table class="table table-bordered table-hover text-center align-middle">
+                <thead>
+                    <tr>
+                        <th scope="col">Cipő</th>
+                        <th scope="col">Cipő neve</th>
+                        <th scope="col">Aktuális árajánlat</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                </thead>
+                <% cipok.forEach(function(shoe) { %>
+                    <% if (shoe.hirdetve === 'Igen' && user._id.toString() == shoe._elado) { %>
+                        <tbody>
+                            <tr>
+                                <th><img src="<%= shoe.kep %>" alt="<%= shoe.nev %>" width="107" height="107"></th>
+                                <td>
+                                    <%= shoe.nev %>
+                                </td>
+                                <td>
+                                    <%= shoe.ar %> Ft
+                                </td>
+                                <td>
+                                    <!--Visszaállítás-->
+                                    <button type="button" class="btn btn-warning btn-lg" data-bs-toggle="modal"
+                                        data-bs-target="#undo<%= shoe._id %>"><i class="fas fa-undo"></i></button>
+                                    <div class="modal fade" id="undo<%= shoe._id %>" tabindex="-1" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Szeretné visszavonni a cipő meghirdetését?
+                                                    </h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    A visszaállítani kívánt cipő a(z) <%= shoe.nev %>.
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Vissza</button>
+                                                        <a href="/user/<%= user._id %>/sajat/elado/cipo/<%= shoe._id %>/undo" class="btn btn-warning">Visszaállítás</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    <% } %>
+                <% }); %>
+            </table>
+        </div>
+    <%- include ('footer') -%>

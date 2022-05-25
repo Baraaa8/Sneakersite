@@ -1,0 +1,89 @@
+<%- include ('header') -%>
+<body>
+    <%- include ('navbar', {active: 'profile' }) -%>
+    <!--Tartalom-->
+    <div class="container text-center">
+        <% if (typeof error !== 'undefined') { %> error
+            <div class="alert alert-danger mb-2 h4"><%= error %></div> 
+        <% } %>
+        <h1>Profil</h1>
+        <div class="mb-2 h4">
+            Teljes név:  <%= user.nev %>
+            <br>Felhasználónév:  <%= user.username %> 
+            <br>Születési dátum:  <%= user.szuletesiIdo.getFullYear() + '. ' + ("0" + (user.szuletesiIdo.getMonth() + 1)).slice(-2) + '. ' + ("0" + user.szuletesiIdo.getDate()).slice(-2) + "."%>
+        </div>
+
+        <!--Egyenleg-->
+        <form method="POST">
+            <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                data-bs-target="#egyenlegvaltas">Egyenlegfeltöltés</button>
+                <div class="modal fade" id="egyenlegvaltas" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Mennyi összeget szeretne feltölteni?</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <input type="number" step=1000 min=1000 class="form-control" name="toltesOsszege">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary"
+                                    data-bs-dismiss="modal">Vissza</button>
+                                <input type=submit class="btn btn-success" value="Feltöltés"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+
+            <!--Jelszó-->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                data-bs-target="#jelszovaltas">Új
+                jelszó</button>
+            <div class="modal fade" id="jelszovaltas" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Jelszóváltoztatás</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="password" class="form-control mb-2" placeholder="Régi jelszó" name="regiJelszo">
+                            <input type="password" class="form-control mb-2" placeholder="Új jelszó" name="ujJelszo">
+                            <input type="password" class="form-control" placeholder="Jelszó megerősítése" name="ujJelszoUjra">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary"
+                                data-bs-dismiss="modal">Vissza</button>
+                            <input type=submit class="btn btn-primary" value="Mentés"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Fióktörlés-->
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                data-bs-target="#fioktorles">Fiók
+                törlése</button>
+            <div class="modal fade" id="fioktorles" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Biztosan törölni szeretné a fiókját?</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary"
+                                data-bs-dismiss="modal">Mégsem</button>
+                            <a href="/user/<%= user._id %>/del" class="btn btn-danger">Törlés</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+<%- include ('footer') -%>

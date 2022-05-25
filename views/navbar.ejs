@@ -1,0 +1,36 @@
+<!--Navbar-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
+    <div class="container-fluid">
+        <div class="navbar-brand">
+            SneakerSite
+        </div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse text-center" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+                <li class="flex-row align-self-center text-muted">
+                    Egyenleg:  <%= user.egyenleg %> Ft
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link <% if (active === 'store') {%>active<%} %>" aria-current="page"
+                        href="/user/<%= user._id %>/elado/cipo">Piac</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link <% if (active === 'profile') {%>active<%} %>" aria-current="page"
+                        href="/user/<%= user._id %>">Profilom</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link <% if (active === 'inventory') {%>active<%} %>" aria-current="page"
+                        href="/user/<%= user._id %>/sajat/cipo">Raktáram</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link <% if (active === 'myAds') {%>active<%} %>" aria-current="page"
+                        href="/user/<%= user._id %>/sajat/elado/cipo">Hirdetéseim</a>
+                </li>
+            </ul>
+        </div>
+        <a href="/login" class="btn btn-outline-danger">Kijelentkezés</a>
+    </div>
+</nav>
